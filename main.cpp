@@ -2,39 +2,58 @@
 #include "manager.h"
 #include "wrestler.h"
 #include <iostream>
-#include <random>
+//#include <random>
+#include <string>
 #include <vector>
 
 // void random_selection();
 
 int main() {
-  Wrestler *john = new Wrestler("John Cena", 73, 251, 9, 7, 8, 7,
-                                wrestler_persona::Face, 90);
-  std::cout << john->name << " weighing " << john->weight
-            << " pounds and measuring " << john->height << " inches!"
+  int wrestler_choice;
+  std::string player_name;
+  int player_height;
+  int player_weight;
+  int allegiance_choice;
+  wrestler_persona player_allegiance;
+  std::cout << "Which wrestler type do you want to be?" << std::endl;
+  std::cout << "1. Strength" << std::endl;
+  std::cout << "2. All-Around" << std::endl;
+  std::cout << "3. Speed" << std::endl;
+  std::cout << "Enter number: ";
+  std::cin >> wrestler_choice;
+  std::cout << "Enter your wrestler's name: ";
+  std::cin >> player_name;
+  std::cout << "Enter height in inches: ";
+  std::cin >> player_height;
+  std::cout << "Enter weight in lbs: ";
+  std::cin >> player_weight;
+  std::cout << "Will you be a Heel or face?\nEnter 1 for heel or 2 for face: ";
+  std::cin >> allegiance_choice;
+  if (allegiance_choice == 1) {
+    player_allegiance = wrestler_persona::Heel;
+  } else {
+    player_allegiance = wrestler_persona::Face;
+  }
+
+  Wrestler *player;
+  switch (wrestler_choice) {
+  case 1:
+    player = new Wrestler(player_name, player_height, player_weight, 90, 60,
+                           60, 50, player_allegiance, 4);
+    break;
+  case 3:
+    player = new Wrestler(player_name, player_height, player_weight, 60, 90,
+                           60, 50, player_allegiance, 4);
+    break;
+  default:
+    player = new Wrestler(player_name, player_height, player_weight, 75, 75,
+                           60, 50, player_allegiance, 4);
+  }
+  std::cout << player->name << " weighing " << player->weight
+            << " pounds and measuring " << player->height << " inches!"
             << std::endl;
+  delete player;
 
-  Wrestler *omega = new Wrestler("Kenny Omega", 72, 218, 8, 8, 10, 9,
-                                 wrestler_persona::Face, 90);
-  std::cout << omega->name << " weighing " << omega->weight
-            << " pounds and measuring " << omega->height << " inches!"
-            << std::endl;
-
-  std::vector<Wrestler *> all_stars_members{john, omega};
-  Faction *all_stars = new Faction("All Stars", 8, 2, 7, 3,
-                                   static_cast<int>(all_stars_members.size()),
-                                   all_stars_members);
-
-  delete john;
-  delete omega;
-  delete all_stars;
-
-  Manager *heyman = new Manager("Heyman", 10, 9, 6, manager_persona::Heel, 95);
-  std::cout << heyman->name << " is a charismatic manager we love to hate!"
-            << std::endl;
-  delete heyman;
-
-  std::cout << "This is a test" << std::endl;
   return 0;
 }
 
