@@ -2,17 +2,26 @@
 #include "manager.h"
 #include "wrestler.h"
 #include <iostream>
-//#include <random>
+// #include <random>
 #include <string>
 #include <vector>
 
+Wrestler *player_choice();
+Wrestler *new_wrestler(double player_level, wrestler_persona player_allegiance,
+                       std::string opponent_name);
 // void random_selection();
 
 int main() {
+  Wrestler *player = player_choice();
+  double player_level{player->new_level()};
+  delete player;
+
+  return 0;
+}
+
+Wrestler *player_choice() {
   int wrestler_choice;
   std::string player_name;
-  int player_height;
-  int player_weight;
   int allegiance_choice;
   wrestler_persona player_allegiance;
   std::cout << "Which wrestler type do you want to be?" << std::endl;
@@ -23,10 +32,6 @@ int main() {
   std::cin >> wrestler_choice;
   std::cout << "Enter your wrestler's name: ";
   std::cin >> player_name;
-  std::cout << "Enter height in inches: ";
-  std::cin >> player_height;
-  std::cout << "Enter weight in lbs: ";
-  std::cin >> player_weight;
   std::cout << "Will you be a Heel or face?\nEnter 1 for heel or 2 for face: ";
   std::cin >> allegiance_choice;
   if (allegiance_choice == 1) {
@@ -38,23 +43,62 @@ int main() {
   Wrestler *player;
   switch (wrestler_choice) {
   case 1:
-    player = new Wrestler(player_name, player_height, player_weight, 90, 60,
-                           60, 50, player_allegiance, 4);
+    player = new Wrestler(player_name, 75, 260, 90, 60, 60, 50,
+                          player_allegiance, 4);
     break;
   case 3:
-    player = new Wrestler(player_name, player_height, player_weight, 60, 90,
-                           60, 50, player_allegiance, 4);
+    player = new Wrestler(player_name, 70, 220, 60, 90, 60, 50,
+                          player_allegiance, 4);
     break;
   default:
-    player = new Wrestler(player_name, player_height, player_weight, 75, 75,
-                           60, 50, player_allegiance, 4);
+    player = new Wrestler(player_name, 72, 240, 75, 75, 60, 50,
+                          player_allegiance, 4);
   }
   std::cout << player->name << " weighing " << player->weight
             << " pounds and measuring " << player->height << " inches!"
             << std::endl;
-  delete player;
+  return player;
+}
 
-  return 0;
+Wrestler *new_wrestler(double player_level, wrestler_persona player_allegiance,
+                       std::string opponent_name) {
+  Wrestler *opponent;
+  wrestler_persona opponent_allegiance;
+  if (player_allegiance == wrestler_persona::Face) {
+    opponent_allegiance = wrestler_persona::Heel;
+  } else {
+    opponent_allegiance = wrestler_persona::Face;
+  }
+
+  if (player_level < 70) {
+    // strong
+    opponent = new Wrestler(opponent_name, 70, 220, 60, 90, 60, 50,
+                            opponent_allegiance, 4);
+  } else if (player_level < 75) {
+    // speed
+    opponent = new Wrestler(opponent_name, 70, 220, 60, 90, 60, 50,
+                            opponent_allegiance, 4);
+  } else if (player_level < 80) {
+    // speed
+    opponent = new Wrestler(opponent_name, 70, 220, 60, 90, 60, 50,
+                            opponent_allegiance, 4);
+  } else if (player_level < 85) {
+    // strong
+    opponent = new Wrestler(opponent_name, 70, 220, 60, 90, 60, 50,
+                            opponent_allegiance, 4);
+  } else if (player_level < 90) {
+    // all around
+    opponent = new Wrestler(opponent_name, 70, 220, 60, 90, 60, 50,
+                            opponent_allegiance, 4);
+  } else if (player_level < 95) {
+    // all around
+    opponent = new Wrestler(opponent_name, 70, 220, 60, 90, 60, 50,
+                            opponent_allegiance, 4);
+  }
+  // all around
+  opponent = new Wrestler(opponent_name, 70, 220, 60, 90, 60, 50,
+                          opponent_allegiance, 4);
+  return opponent;
 }
 
 /*void random_selection() {

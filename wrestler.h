@@ -27,6 +27,7 @@ class Wrestler {
   int popularity;
 
  public:
+  double level;
   std::string name;
   int weight;  // pounds
   int height;  // inches
@@ -36,6 +37,8 @@ class Wrestler {
            int popularity);
 
   ~Wrestler();
+
+  double new_level();
 };
 
 #endif // WRESTLING_JOURNEY_WRESTLER_H
