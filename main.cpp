@@ -3,18 +3,50 @@
 #include "wrestler.h"
 #include <iostream>
 // #include <random>
+#include <map>
 #include <string>
 #include <vector>
 
+enum physical_strategy {
+  Speed,
+  Strength,
+};
+enum mental_strategy {
+  IQ,
+  Technical,
+};
+
 Wrestler *player_choice();
 Wrestler *new_wrestler(double player_level, wrestler_persona player_allegiance,
-                       std::string opponent_name);
+                       const std::string &opponent_name);
+physical_strategy first_strategy();
+mental_strategy second_strategy();
 // void random_selection();
 
 int main() {
   Wrestler *player = player_choice();
-  double player_level{player->new_level()};
+  double player_level;
+  player_level = player->get_level();
+  Wrestler *first_opponent;
+  first_opponent = new_wrestler(player_level, player->persona, "John");
+
+  physical_strategy p_primary_strategy{first_strategy()};
+  mental_strategy p_secondary_strategy{second_strategy()};
+  std::map<physical_strategy, std::string> physical_to_string = {
+      {Speed, "Speed"},
+      {Strength, "Strength"},
+  };
+  std::map<mental_strategy, std::string> mental_to_string = {
+      {IQ, "IQ"},
+      {Technical, "Technical"},
+  };
+  std::cout << "You will use your" << physical_to_string[p_primary_strategy]
+            << " and " << mental_to_string[p_secondary_strategy]
+            << " abilities to try and have an advantage over "
+            << first_opponent->name << "!" << std::endl;
+
   delete player;
+  delete first_opponent;
 
   return 0;
 }
@@ -61,7 +93,7 @@ Wrestler *player_choice() {
 }
 
 Wrestler *new_wrestler(double player_level, wrestler_persona player_allegiance,
-                       std::string opponent_name) {
+                       const std::string &opponent_name) {
   Wrestler *opponent;
   wrestler_persona opponent_allegiance;
   if (player_allegiance == wrestler_persona::Face) {
@@ -98,9 +130,33 @@ Wrestler *new_wrestler(double player_level, wrestler_persona player_allegiance,
   // all around
   opponent = new Wrestler(opponent_name, 70, 220, 60, 90, 60, 50,
                           opponent_allegiance, 4);
+
+  std::cout << opponent->name << " weighing " << opponent->weight
+            << " pounds and measuring " << opponent->height << " inches!"
+            << std::endl;
   return opponent;
 }
 
+physical_strategy first_strategy() {
+  int choice;
+  std::cout << "Choose your physical strategy: " << std::endl;
+  std::cout << "1 for Speed(default) or 2 for Strength: ";
+  std::cin >> choice;
+  if (choice == 2) {
+    return Strength;
+  }
+  return Speed;
+}
+mental_strategy second_strategy() {
+  int choice;
+  std::cout << "Choose your mental strategy: " << std::endl;
+  std::cout << "1 for IQ(default) or 2 for Technical Ability: ";
+  std::cin >> choice;
+  if (choice == 2) {
+    return Technical;
+  }
+  return IQ;
+}
 /*void random_selection() {
   std::vector<int> trial{8, 90, 50, 22, 46};
 

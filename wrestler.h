@@ -23,10 +23,10 @@ class Wrestler {
     int wins;
     int losses;
   };
-  wrestler_persona persona;
   int popularity;
 
  public:
+  wrestler_persona persona;
   double level;
   std::string name;
   int weight;  // pounds
@@ -38,7 +38,7 @@ class Wrestler {
 
   ~Wrestler();
 
-  double new_level();
+  double get_level();
 };
 
 #endif // WRESTLING_JOURNEY_WRESTLER_H

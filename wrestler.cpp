@@ -12,15 +12,16 @@ Wrestler::Wrestler(std::string name, int height, int weight, int strength,
     : name(name), height(height), weight(weight), strength(strength),
       speed(speed), iq(iq), technical_ability(technical_ability),
       persona(persona), popularity(popularity) {
-  level = new_level();
+  level = get_level();
 }
 
 Wrestler::~Wrestler() {
   std::cout << "End of the line for " << name << ".\n" << std::endl;
 }
 
-double Wrestler::new_level() {
+double Wrestler::get_level() {
   double level_sum;
   level_sum = strength + speed + iq + technical_ability;
   return level_sum / 4;
 }
+
